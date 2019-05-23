@@ -1,75 +1,33 @@
-![](assets/title.png)
+# UP 中国区使用方法
 
-Up deploys infinitely scalable serverless apps, APIs, and static websites in seconds, so you can get back to working on what makes your product unique.
+[UP](https://github.com/apex/up) 是一个快速创建、部署 serverless 的服务。使用文档参考 [https://up.docs.apex.sh/](https://up.docs.apex.sh/)。
 
-With Up there's no need to worry about managing or scaling machines, paying for idle servers, worrying about logging infrastructure or alerting. Just deploy your app with `$ up` and you're done!
+因为中国大陆 AWS 服务与其它地区的 API 有些区别，所以 UP 暂时不能在中国区使用。为了解决这个问题，在 UP v1.2.2 代码基础上做了些改动。目前达到**可用**状态。
 
-Use the free OSS version, or subscribe to [Up Pro](#pro-features) for a small monthly fee for unlimited use within your company, there is no additional cost per team-member or application. Deploy dozens or even hundreds of applications for pennies thanks to AWS Lambda's cost effective nature.
+## 改动部分
+1. 增加了 cn-north-1 / cn-north-west-1 区域，分别代表 AWS 北京和 AWS 宁夏区域；（文件：./platform/aws/regions/regions.go）
+2. 注释了 environment variables 相关代码，中国区暂不支持；（文件： ./platform/lambda/lambda.go）
+3. 为 API Gateway 和 Lambda 增加了 .cn 的 endpoint；参考 [AWS 区域和终端节点](http://docs.amazonaws.cn/general/latest/gr/rande.html)。（文件： ./platform/lambda/lambda.go）
+4. Binary 名称改为 upcn。（文件： install.sh 和 .goreleaser.yml）
 
-## About
-
-Up focuses on deploying "vanilla" HTTP servers so there's nothing new to learn, just develop with your favorite existing frameworks such as Express, Koa, Django, Golang net/http or others.
-
-Up currently supports Node.js, Golang, Python, Java, Crystal, Clojure and static sites out of the box. Up is platform-agnostic, supporting AWS Lambda and API Gateway as the first targets. You can think of Up as self-hosted Heroku style user experience for a fraction of the price, with the security, isolation, flexibility, and scalability of AWS.
-
-Check out the [documentation](https://up.docs.apex.sh/) for more instructions and links, or try one of the [examples](https://github.com/apex/up-examples), or chat with us in [Slack](https://chat.apex.sh/).
-
-![](assets/screen2.png)
-
-## OSS Features
-
-Features of the free open-source edition.
-
-![Open source edition features](assets/features-community.png)
-
-## Pro Features
-
-Up Pro provides additional features for production-ready applications such as encrypted environment variables, error alerting, unlimited team members, unlimited applications, priority [email support](mailto:support@apex.sh), and global deployments for **$19.99/mo USD**. Visit [Subscribing to Up Pro](https://up.docs.apex.sh/#guides.subscribing_to_up_pro) to get started.
-
-![Pro edition features](assets/features-pro.png)
-
-[![](https://gui.apex.sh/component?name=ShadowButton&config=%7B%22text%22%3A%22SUBSCRIBE%22%2C%22color%22%3A%227956EF%22%7D)](https://up.docs.apex.sh/#guides.subscribing_to_up_pro)
-
-## Quick Start
-
-Install Up:
-
+## 安装
 ```
-$ curl -sf https://up.apex.sh/install | sh
+$ curl -sf https://raw.githubusercontent.com/leplay/upcn/master/install.sh | sh
 ```
 
-Create an `app.js` file:
-
-```js
-require('http').createServer((req, res) => {
-  res.end('Hello World\n')
-}).listen(process.env.PORT)
+## 使用方法
+1. 重要！如果要在中国区使用 API Gateway 并且要使用公开 url 访问，需要去 AWS 支持中心创建案例申请开通；
+2. 创建 up.json 要指定区域，并且将 cors 设置为 null，不要设置 environment 属性。示例：
 ```
-
-Deploy the app:
-
+{
+  "name": "test",
+  "profile": "up-cn",
+  "regions": ["cn-north-1"],
+  "cors": null
+}
 ```
-$ up
+3. 在脚本目录里执行：
 ```
-
-Open it in the browser, or copy the url to your clipboard:
-
+export AWS_REGION=cn-north-1
 ```
-$ up url -o
-$ up url -c
-```
-
-## Donations
-
-We also welcome financial contributions for the open-source version on [Open Collective](https://opencollective.com/apex-up). Your contributions help keep this project alive!
-
-### Sponsors
-
-<a href="https://opencollective.com/apex-up#backers" target="_blank"><img src="https://opencollective.com/apex-up/tiers/sponsors.svg?avatarHeight=36&width=600" /></a>
-
-### Backers
-
-<a href="https://opencollective.com/apex-up#backers" target="_blank"><img src="https://opencollective.com/apex-up/tiers/backers.svg?avatarHeight=36&width=600" /></a>
-
-
-<a href="https://apex.sh"><img src="http://tjholowaychuk.com:6000/svg/sponsor"></a>
+4. upcn deploy 之后，需要手动去 [AWS Lambda 后台](https://console.amazonaws.cn/lambda/home?region=cn-north-1) 添加一下 API Gateway 触发器。
