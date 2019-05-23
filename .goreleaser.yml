@@ -1,6 +1,6 @@
 build:
   main: cmd/up/main.go
-  binary: up
+  binary: upcn
   goos:
     - darwin
     - linux
