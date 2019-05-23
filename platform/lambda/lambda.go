@@ -567,7 +567,7 @@ retry:
 		MemorySize:   aws.Int64(int64(p.config.Lambda.Memory)),
 		Timeout:      aws.Int64(int64(p.config.Proxy.Timeout + 3)),
 		Publish:      aws.Bool(true),
-		Environment:  env,
+		// Environment:  env,
 		Code: &lambda.FunctionCode{
 			S3Bucket: b,
 			S3Key:    k,
@@ -616,10 +616,10 @@ func (p *Platform) updateFunction(c *lambda.Lambda, a *apigateway.APIGateway, up
 	}
 
 	// load environment
-	env, err := p.loadEnvironment(d)
-	if err != nil {
-		return "", errors.Wrap(err, "loading environment variables")
-	}
+	// env, err := p.loadEnvironment(d)
+	// if err != nil {
+	// 	return "", errors.Wrap(err, "loading environment variables")
+	// }
 
 	// update function config
 	log.Debug("updating function")
@@ -630,7 +630,7 @@ func (p *Platform) updateFunction(c *lambda.Lambda, a *apigateway.APIGateway, up
 		Role:         &p.config.Lambda.Role,
 		MemorySize:   aws.Int64(int64(p.config.Lambda.Memory)),
 		Timeout:      aws.Int64(int64(p.config.Proxy.Timeout + 3)),
-		Environment:  env,
+		// Environment:  env,
 		VpcConfig:    p.vpc(),
 	})
 
