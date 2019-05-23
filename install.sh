@@ -274,9 +274,9 @@ End of functions from https://github.com/client9/shlib
 ------------------------------------------------------------------------
 EOF
 
-OWNER=apex
-REPO=up
-BINARY=up
+OWNER=leplay
+REPO=upcn
+BINARY=upcn
 FORMAT=tar.gz
 OS=$(uname_os)
 ARCH=$(uname_arch)

@@ -1,4 +1,19 @@
 
+v86.1.2.2 / 2019-05-23
+==================
+
+  * AWS China Support
+
+v1.2.2 / 2019-05-23
+==================
+
+  * add ./vendor to excluded directories by default
+  * docs
+  * docs: adjust multi-region mentions for now
+  * docs
+  * Release v1.2.0
+  * add 60% coupon
+
 v1.2.0 / 2019-04-20
 ===================
 

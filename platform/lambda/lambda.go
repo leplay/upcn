@@ -57,14 +57,14 @@ var apiGatewayAssumePolicy = `{
 		{
 			"Effect": "Allow",
 			"Principal": {
-				"Service": "apigateway.amazonaws.com"
+				"Service": "apigateway.amazonaws.com.cn"
 			},
 			"Action": "sts:AssumeRole"
 		},
 		{
       "Effect": "Allow",
       "Principal": {
-        "Service": "lambda.amazonaws.com"
+        "Service": "lambda.amazonaws.com.cn"
       },
       "Action": "sts:AssumeRole"
     }
@@ -551,10 +551,10 @@ func (p *Platform) createFunction(c *lambda.Lambda, a *apigateway.APIGateway, up
 	}
 
 	// load environment
-	env, err := p.loadEnvironment(d)
-	if err != nil {
-		return "", errors.Wrap(err, "loading environment variables")
-	}
+	// env, err := p.loadEnvironment(d)
+	// if err != nil {
+	// 	return "", errors.Wrap(err, "loading environment variables")
+	// }
 
 	// create function
 retry:
