@@ -761,11 +761,11 @@ func (p *Platform) createRole() error {
 	}
 
 	log.Debug("creating role")
-	role, err := c.CreateRole(&iam.CreateRoleInput{
-		RoleName:                 &name,
-		Description:              &desc,
-		// AssumeRolePolicyDocument: &apiGatewayAssumePolicy,
-	})
+	// role, err := c.CreateRole(&iam.CreateRoleInput{
+	// 	RoleName:                 &name,
+	// 	Description:              &desc,
+	// 	AssumeRolePolicyDocument: &apiGatewayAssumePolicy,
+	// })
 
 	if err != nil {
 		return errors.Wrap(err, "creating role")
