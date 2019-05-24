@@ -51,28 +51,23 @@ const (
 )
 
 // assume policy for the lambda function.
-// var apiGatewayAssumePolicy = `{
-// 	"Version": "2012-10-17",
-// 	"Statement": [
-// 		{
-// 			"Effect": "Allow",
-// 			"Principal": {
-// 				"Service": "apigateway.amazonaws.com.cn"
-// 			},
-// 			"Action": "sts:AssumeRole"
-// 		},
-// 		{
-// 			"Effect": "Allow",
-// 			"Principal": {
-// 				"Service": "lambda.amazonaws.com.cn"
-// 			},
-// 			"Action": "sts:AssumeRole"
-// 		}
-// 	]
-// }`
 var apiGatewayAssumePolicy = `{
 	"Version": "2012-10-17",
 	"Statement": [
+		{
+			"Effect": "Allow",
+			"Principal": {
+				"Service": "apigateway.amazonaws.com.cn"
+			},
+			"Action": "sts:AssumeRole"
+		},
+		{
+			"Effect": "Allow",
+			"Principal": {
+				"Service": "lambda.amazonaws.com.cn"
+			},
+			"Action": "sts:AssumeRole"
+		}
 	]
 }`
 
@@ -769,7 +764,7 @@ func (p *Platform) createRole() error {
 	role, err := c.CreateRole(&iam.CreateRoleInput{
 		RoleName:                 &name,
 		Description:              &desc,
-		AssumeRolePolicyDocument: &apiGatewayAssumePolicy,
+		// AssumeRolePolicyDocument: &apiGatewayAssumePolicy,
 	})
 
 	if err != nil {
