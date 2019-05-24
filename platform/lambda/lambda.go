@@ -229,7 +229,7 @@ func (p *Platform) URL(region, stage string) (string, error) {
 		return "", errors.Errorf("cannot find the API, looks like you haven't deployed")
 	}
 
-	id := fmt.Sprintf("https://%s.execute-api.%s.amazonaws.com/%s/", *api.Id, region, stage)
+	id := fmt.Sprintf("https://%s.execute-api.%s.amazonaws.com.cn/%s/", *api.Id, region, stage)
 	return id, nil
 }
 

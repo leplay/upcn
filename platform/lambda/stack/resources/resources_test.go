@@ -311,7 +311,7 @@ func Example_stagePermission() {
 	//         ]
 	//       ]
 	//     },
-	//     "Principal": "apigateway.amazonaws.com",
+	//     "Principal": "apigateway.amazonaws.com.cn",
 	//     "SourceArn": {
 	//       "Fn::Join": [
 	//         "",

@@ -225,7 +225,7 @@ func stagePermissions(c *Config, s *config.Stage, m Map, aliasID string) {
 		"Properties": Map{
 			"Action":       "lambda:invokeFunction",
 			"FunctionName": lambdaArnQualifier("FunctionName", s.Name),
-			"Principal":    "apigateway.amazonaws.com",
+			"Principal":    "apigateway.amazonaws.com.cn",
 			"SourceArn": join("",
 				"arn:aws:execute-api",
 				":",
